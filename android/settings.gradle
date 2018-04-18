@@ -1,0 +1,3 @@
+rootProject.name = 'coin_logo_quiz'
+
+include ':app'
