@@ -7,10 +7,13 @@ import {
   Image,
   TouchableOpacity,
   Modal,
-  StatusBar
+  StatusBar,
+  Share,
+  ImageBackground
 } from 'react-native';
 
 let numerOfQuestionCount = 0;
+const optionButtonBgColor = '#fff'
 
 export default class App extends Component {
   constructor(){
@@ -19,7 +22,7 @@ export default class App extends Component {
       dataSource: [],
       logo: '',
       options: ['','','',''],
-      optionsBgColor: ['#9b59b6','#9b59b6','#9b59b6','#9b59b6'],
+      optionsBgColor: [optionButtonBgColor,optionButtonBgColor,optionButtonBgColor,optionButtonBgColor],
       answer: 0,
       score: 0,
       showFinish: false,
@@ -71,7 +74,7 @@ export default class App extends Component {
       logo: coin.logo,
       options: options,
       ans: ansIndex,
-      optionsBgColor: ['#9b59b6','#9b59b6','#9b59b6','#9b59b6']
+      optionsBgColor: [optionButtonBgColor,optionButtonBgColor,optionButtonBgColor,optionButtonBgColor]
     })
   }
 
@@ -100,7 +103,14 @@ export default class App extends Component {
   }
 
   onPressShare = ()=>{
-
+    Share.share({
+      message: 'BAM: we\'re helping your business with awesome React Native apps',
+      url: 'http://bam.tech',
+      title: 'Wow, did you see that?'
+    }, {
+      // Android only:
+      dialogTitle: 'Share BAM goodness',
+    })
   }
 
   selectOption(index){
@@ -116,7 +126,7 @@ export default class App extends Component {
           })
         }
       }else {
-        bgColors.push('#9b59b6')
+        bgColors.push(optionButtonBgColor)
       }
     }
     this.setState({
@@ -129,15 +139,18 @@ export default class App extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <ImageBackground style={styles.container} source={require('./bg.png')}>
         <StatusBar hidden={true} />
         <View style={styles.header}>
-          <Text style={{fontSize: 24, fontWeight: 'bold', color:'#fff'}}>{this.state.score}</Text>
-          <Text style={{color: '#fff', fontSize: 18, fontWeight: 'bold'}}>COIN LOGO QUIZ</Text>
+          <Text style={{fontSize: 24, fontWeight: 'bold', color:'#2c3e50'}}>{this.state.score}</Text>
+          <Image source={require('./logo.jpg')} style={{height: 40, width: 40}}/>
+          {/* <Text style={{color: '#fff', fontSize: 18, fontWeight: 'bold'}}>COIN LOGO QUIZ</Text> */}
           <Text></Text>
         </View>
-        <View style={{alignItems:'center', padding: 16}}>
-          <Image style={styles.logo} source={{uri: this.state.logo}}/>
+        <View style={{alignItems:'center'}}>
+          <TouchableOpacity style={styles.logo}>
+            <Image style={{height: 200, width: 200, borderRadius: 100}} source={{uri: this.state.logo}}/>
+          </TouchableOpacity>
         </View>
         <View style={{flexDirection: 'row'}}>
           <TouchableOpacity style={[styles.optionButton, {backgroundColor: this.state.optionsBgColor[0],flex:1}]} onPress={this.onPressOptionA}>
@@ -156,13 +169,13 @@ export default class App extends Component {
           </TouchableOpacity>
         </View>
         <Modal
-          animationType="slide"
+          animationType="fade"
           transparent={true}
           visible={this.state.showFinish}>
           <View style={styles.finishContainer}>
             <View style={styles.modalView}>
-              <Text>FINISH!</Text>
-              <Text style={{fontSize: 88}}>{this.state.scorePercentage}</Text>
+              <Text style={{color: '#2c3e50', fontSize: 14}}>FINISH!</Text>
+              <Text style={{fontSize: 88, color: '#2c3e50'}}>{this.state.scorePercentage}</Text>
               <View style={{flexDirection: 'row'}}>
                 <TouchableOpacity style={[styles.optionButton,{backgroundColor: '#f39c12', alignItems:'center'}]} onPress={this.onPressPlayAgain}>
                   <Text style={styles.optionButtonText}>play again!</Text>
@@ -174,7 +187,7 @@ export default class App extends Component {
             </View>
           </View>
         </Modal>
-      </View>
+      </ImageBackground>
     );
   }
 }
@@ -182,28 +195,26 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#8e44ad',
   },
   header:{
     flexDirection:'row',
     justifyContent:'space-between',
     alignItems: 'center',
-    margin: 32
+    margin: 20
   },
   logo:{
-    height: 200,
-    width: 200,
+    backgroundColor: '#fff',
     borderRadius: 100,
     borderWidth: 4,
-    borderColor: '#9b59b6',
+    borderColor: '#2c3e50',
     marginBottom: 64,
-    backgroundColor: '#FFF',
+
   },
   optionButton: {
     height: 40,
     backgroundColor: '#9b59b6',
     borderWidth: 2,
-    borderColor: 'rgba(255, 255, 255, 0.2)',
+    borderColor: '#2c3e50',
     borderRadius: 25,
     justifyContent: 'center',
     padding: 8,
@@ -211,14 +222,15 @@ const styles = StyleSheet.create({
     flex:1
   },
   optionButtonText: {
-    color: '#FFF',
+    color: '#2c3e50',
     fontWeight: 'bold',
     fontSize: 14
   },
   finishContainer:{
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 1
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.3)'
   },
   modalView:{
     backgroundColor: '#fff',
