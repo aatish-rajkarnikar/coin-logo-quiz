@@ -11,6 +11,12 @@ import {
   Share,
   ImageBackground
 } from 'react-native';
+import {
+  AdMobBanner,
+  AdMobInterstitial,
+  PublisherBanner,
+  AdMobRewarded,
+} from 'react-native-admob'
 
 let numerOfQuestionCount = 0;
 const optionButtonBgColor = '#fff'
@@ -183,6 +189,12 @@ export default class App extends Component {
             </View>
           </View>
         </Modal>
+        <AdMobBanner
+            adSize="smartBannerPortrait"
+            adUnitID="ca-app-pub-5492969470059595/2538612905"
+            testDevices={[AdMobBanner.simulatorId]}
+            onAdFailedToLoad={error => console.error(error)}
+          />
       </ImageBackground>
     );
   }
