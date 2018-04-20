@@ -145,7 +145,7 @@ export default class App extends Component {
         </View>
         <View style={{alignItems:'center'}}>
           <TouchableOpacity style={styles.logo}>
-            <Image style={{height: 200, width: 200, borderRadius: 100}} source={{uri: this.state.logo}}/>
+            <Image style={{height: 200, width: 200, borderRadius: 100}} source={{uri: this.state.logo}} resizeMode='center'/>
           </TouchableOpacity>
         </View>
         <View style={{flexDirection: 'row'}}>
