@@ -104,12 +104,9 @@ export default class App extends Component {
 
   onPressShare = ()=>{
     Share.share({
-      message: 'BAM: we\'re helping your business with awesome React Native apps',
-      url: 'http://bam.tech',
+      message: `i scored ${this.state.scorePercentage} in the coin logo quiz.`,
+      url: 'http://google.com',
       title: 'Wow, did you see that?'
-    }, {
-      // Android only:
-      dialogTitle: 'Share BAM goodness',
     })
   }
 
@@ -143,9 +140,8 @@ export default class App extends Component {
         <StatusBar hidden={true} />
         <View style={styles.header}>
           <Text style={{fontSize: 24, fontWeight: 'bold', color:'#2c3e50'}}>{this.state.score}</Text>
+          <Text style={{color: '#2c3e50', fontSize: 18, fontWeight: 'bold', fontStyle:'italic'}}>COIN LOGO QUIZ</Text>
           <Image source={require('./logo.jpg')} style={{height: 40, width: 40}}/>
-          {/* <Text style={{color: '#fff', fontSize: 18, fontWeight: 'bold'}}>COIN LOGO QUIZ</Text> */}
-          <Text></Text>
         </View>
         <View style={{alignItems:'center'}}>
           <TouchableOpacity style={styles.logo}>
@@ -198,7 +194,7 @@ const styles = StyleSheet.create({
   },
   header:{
     flexDirection:'row',
-    justifyContent:'space-between',
+    justifyContent:'space-around',
     alignItems: 'center',
     margin: 20
   },
