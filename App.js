@@ -191,12 +191,12 @@ export default class App extends Component {
               </View>
             </View>
           </Modal>
-          {/* <AdMobBanner
+          <AdMobBanner
               adSize="smartBannerPortrait"
               adUnitID="ca-app-pub-5492969470059595/2538612905"
               testDevices={[AdMobBanner.simulatorId]}
               onAdFailedToLoad={error => console.error(error)}
-            /> */}
+            />
         </ImageBackground>
       );
     }
