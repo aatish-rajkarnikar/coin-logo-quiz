@@ -32,7 +32,8 @@ export default class App extends Component {
       answer: 0,
       score: 0,
       showFinish: false,
-      scorePercentage: '0%'
+      scorePercentage: '0%',
+      start: false
     }
   }
 
@@ -141,62 +142,79 @@ export default class App extends Component {
   }
 
   render() {
-    return (
-      <ImageBackground style={styles.container} source={require('./bg.png')}>
-        <StatusBar hidden={true} />
-        <View style={styles.header}>
-          <Text style={{fontSize: 24, fontWeight: 'bold', color:'#2c3e50'}}>{this.state.score}</Text>
-          <Text style={{color: '#2c3e50', fontSize: 18, fontWeight: 'bold', fontStyle:'italic'}}>COIN LOGO QUIZ</Text>
-          <Image source={require('./logo.jpg')} style={{height: 40, width: 40}}/>
-        </View>
-        <View style={{alignItems:'center'}}>
-          <TouchableOpacity style={styles.logo}>
-            <Image style={{height: 200, width: 200, borderRadius: 100}} source={{uri: this.state.logo}} resizeMode='center'/>
-          </TouchableOpacity>
-        </View>
-        <View style={{flexDirection: 'row'}}>
-          <TouchableOpacity style={[styles.optionButton, {backgroundColor: this.state.optionsBgColor[0],flex:1}]} onPress={this.onPressOptionA}>
-            <Text style={styles.optionButtonText}>{`A. ${this.state.options[0]}`}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.optionButton, {backgroundColor: this.state.optionsBgColor[1],flex:1}]} onPress={this.onPressOptionB}>
-            <Text style={styles.optionButtonText}>{`B. ${this.state.options[1]}`}</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={{flexDirection: 'row'}}>
-          <TouchableOpacity style={[styles.optionButton, {backgroundColor: this.state.optionsBgColor[2],flex:1}]} onPress={this.onPressOptionC}>
-            <Text style={styles.optionButtonText}>{`C. ${this.state.options[2]}`}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.optionButton, {backgroundColor: this.state.optionsBgColor[3],flex:1}]} onPress={this.onPressOptionD}>
-            <Text style={styles.optionButtonText}>{`D. ${this.state.options[3]}`}</Text>
-          </TouchableOpacity>
-        </View>
-        <Modal
-          animationType="fade"
-          transparent={true}
-          visible={this.state.showFinish}>
-          <View style={styles.finishContainer}>
-            <View style={styles.modalView}>
-              <Text style={{color: '#2c3e50', fontSize: 14}}>FINISH!</Text>
-              <Text style={{fontSize: 88, color: '#2c3e50'}}>{this.state.scorePercentage}</Text>
-              <View style={{flexDirection: 'row'}}>
-                <TouchableOpacity style={[styles.optionButton,{backgroundColor: '#f39c12', alignItems:'center'}]} onPress={this.onPressPlayAgain}>
-                  <Text style={styles.optionButtonText}>play again!</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={[styles.optionButton,{backgroundColor: '#3498db', alignItems:'center'}]} onPress={this.onPressShare}>
-                  <Text style={styles.optionButtonText}>share</Text>
-                </TouchableOpacity>
+    if (this.state.start) {
+      return (
+        <ImageBackground style={styles.container} source={require('./bg.png')}>
+          <StatusBar hidden={true} />
+          <View style={styles.header}>
+            <Text style={{fontSize: 24, fontWeight: 'bold', color:'#2c3e50'}}>{this.state.score}</Text>
+            <Text style={{color: '#2c3e50', fontSize: 18, fontWeight: 'bold', fontStyle:'italic'}}>COIN LOGO QUIZ</Text>
+            <Image source={require('./logo.jpg')} style={{height: 40, width: 40}}/>
+          </View>
+          <View style={{alignItems:'center'}}>
+            <TouchableOpacity style={styles.logo}>
+              <Image style={{height: 200, width: 200, borderRadius: 100}} source={{uri: this.state.logo}} resizeMode='center'/>
+            </TouchableOpacity>
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <TouchableOpacity style={[styles.optionButton, {backgroundColor: this.state.optionsBgColor[0],flex:1}]} onPress={this.onPressOptionA}>
+              <Text style={styles.optionButtonText}>{`A. ${this.state.options[0]}`}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.optionButton, {backgroundColor: this.state.optionsBgColor[1],flex:1}]} onPress={this.onPressOptionB}>
+              <Text style={styles.optionButtonText}>{`B. ${this.state.options[1]}`}</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <TouchableOpacity style={[styles.optionButton, {backgroundColor: this.state.optionsBgColor[2],flex:1}]} onPress={this.onPressOptionC}>
+              <Text style={styles.optionButtonText}>{`C. ${this.state.options[2]}`}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.optionButton, {backgroundColor: this.state.optionsBgColor[3],flex:1}]} onPress={this.onPressOptionD}>
+              <Text style={styles.optionButtonText}>{`D. ${this.state.options[3]}`}</Text>
+            </TouchableOpacity>
+          </View>
+          <Modal
+            animationType="fade"
+            transparent={true}
+            visible={this.state.showFinish}>
+            <View style={styles.finishContainer}>
+              <View style={styles.modalView}>
+                <Text style={{color: '#2c3e50', fontSize: 14}}>FINISH!</Text>
+                <Text style={{fontSize: 88, color: '#2c3e50'}}>{this.state.scorePercentage}</Text>
+                <View style={{flexDirection: 'row'}}>
+                  <TouchableOpacity style={[styles.optionButton,{backgroundColor: '#f39c12', alignItems:'center'}]} onPress={this.onPressPlayAgain}>
+                    <Text style={styles.optionButtonText}>play again!</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={[styles.optionButton,{backgroundColor: '#3498db', alignItems:'center'}]} onPress={this.onPressShare}>
+                    <Text style={styles.optionButtonText}>share</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
-          </View>
-        </Modal>
-        <AdMobBanner
-            adSize="smartBannerPortrait"
-            adUnitID="ca-app-pub-5492969470059595/2538612905"
-            testDevices={[AdMobBanner.simulatorId]}
-            onAdFailedToLoad={error => console.error(error)}
-          />
+          </Modal>
+          {/* <AdMobBanner
+              adSize="smartBannerPortrait"
+              adUnitID="ca-app-pub-5492969470059595/2538612905"
+              testDevices={[AdMobBanner.simulatorId]}
+              onAdFailedToLoad={error => console.error(error)}
+            /> */}
+        </ImageBackground>
+      );
+    }
+    return (
+      <ImageBackground style={[styles.container,{justifyContent:'space-around', alignItems:'center'}]} source={require('./bg.png')}>
+        <StatusBar hidden={true} />
+        <View style={{alignItems:'center'}}>
+          <Image source={require('./logo.jpg')} style={{height: 150, width: 150}}/>
+          <Text style={{color: '#2c3e50', fontSize: 32, fontWeight: 'bold', fontStyle:'italic', marginTop: 16}}>COIN LOGO QUIZ</Text>
+          <TouchableOpacity
+            style={{margin: 64, padding: 8, alignItems: 'center',height: 40, width: 200, borderColor:'#2c3e50', borderWidth:2, borderRadius: 20, backgroundColor: '#fff'}}
+            onPress={()=>this.setState({start: true})}
+            >
+            <Text style={styles.optionButtonText}>PLAY!</Text>
+          </TouchableOpacity>
+        </View>
       </ImageBackground>
-    );
+    )
   }
 }
 
@@ -223,7 +241,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#9b59b6',
     borderWidth: 2,
     borderColor: '#2c3e50',
-    borderRadius: 25,
+    borderRadius: 20,
     justifyContent: 'center',
     padding: 8,
     margin: 8,
