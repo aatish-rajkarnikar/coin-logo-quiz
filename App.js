@@ -943,23 +943,25 @@ export default class App extends Component {
               <Text style={{color: '#2c3e50', fontSize: 18, fontWeight: 'bold', fontStyle:'italic'}}>COIN LOGO QUIZ</Text>
               <Image source={require('./logo.jpg')} style={{height: 40, width: 40}}/>
             </View>
-            <View style={{alignItems:'center'}}>
-              <Image style={styles.logo} source={this.state.logo}/>
+            <View style={{alignItems:'center', marginTop: 64}}>
+              <View style={styles.logo}>
+                <Image style={{height: 180, width: 180}} source={this.state.logo}/>
+              </View>
             </View>
-            <View style={{flexDirection: 'row'}}>
+            <View style={{flexDirection: 'row', marginTop: 32}}>
               <TouchableOpacity style={[styles.optionButton, {backgroundColor: this.state.optionsBgColor[0],flex:1}]} onPress={this.onPressOptionA}>
-                <Text style={styles.optionButtonText}>{`A. ${this.state.options[0]}`}</Text>
+                <Text style={styles.optionButtonText}>{this.state.options[0]}</Text>
               </TouchableOpacity>
               <TouchableOpacity style={[styles.optionButton, {backgroundColor: this.state.optionsBgColor[1],flex:1}]} onPress={this.onPressOptionB}>
-                <Text style={styles.optionButtonText}>{`B. ${this.state.options[1]}`}</Text>
+                <Text style={styles.optionButtonText}>{this.state.options[1]}</Text>
               </TouchableOpacity>
             </View>
             <View style={{flexDirection: 'row'}}>
               <TouchableOpacity style={[styles.optionButton, {backgroundColor: this.state.optionsBgColor[2],flex:1}]} onPress={this.onPressOptionC}>
-                <Text style={styles.optionButtonText}>{`C. ${this.state.options[2]}`}</Text>
+                <Text style={styles.optionButtonText}>{this.state.options[2]}</Text>
               </TouchableOpacity>
               <TouchableOpacity style={[styles.optionButton, {backgroundColor: this.state.optionsBgColor[3],flex:1}]} onPress={this.onPressOptionD}>
-                <Text style={styles.optionButtonText}>{`D. ${this.state.options[3]}`}</Text>
+                <Text style={styles.optionButtonText}>{this.state.options[3]}</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -1021,21 +1023,22 @@ const styles = StyleSheet.create({
   },
   logo:{
     backgroundColor: '#fff',
-    borderRadius: 90,
-    borderWidth: 2,
-    borderColor: '#2c3e50',
-    height: 180,
-    width: 180,
+    borderWidth: 4,
+    borderColor: 'rgba(44, 62, 80,0.3)',
+    height: 200,
+    width: 200,
     marginBottom: 64,
-    padding: 8
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   optionButton: {
     height: 40,
     backgroundColor: '#9b59b6',
     borderWidth: 2,
-    borderColor: '#2c3e50',
+    borderColor: 'rgba(44, 62, 80,0.3)',
     borderRadius: 20,
     justifyContent: 'center',
+    alignItems:'center',
     padding: 8,
     margin: 8,
     flex:1
