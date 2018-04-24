@@ -849,6 +849,7 @@ export default class App extends Component {
         scorePercentage: `${Math.floor((this.state.score/25)*100)}%`
       })
       numberOfQuestionCount = 0
+      this.showInterstitial()
       return
     }
     numberOfQuestionCount++
@@ -932,53 +933,62 @@ export default class App extends Component {
     }, 2000);
   }
 
+  showInterstitial(){
+    AdMobInterstitial.setAdUnitID('ca-app-pub-5492969470059595/5034947562');
+    AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
+    AdMobInterstitial.requestAd().then(() => AdMobInterstitial.showAd());
+  }
+
   render() {
     if (this.state.start) {
       return (
         <ImageBackground style={styles.container} source={require('./bg.png')}>
           <StatusBar hidden={true} />
-          <View style={{flex: 1}}>
+          <View style={{flex: 1, justifyContent: 'space-between'}}>
             <View style={styles.header}>
               <Text style={{fontSize: 24, fontWeight: 'bold', color:'#2c3e50'}}>{this.state.questionCount}</Text>
               <Text style={{color: '#2c3e50', fontSize: 18, fontWeight: 'bold', fontStyle:'italic'}}>COIN LOGO QUIZ</Text>
               <Image source={require('./logo.jpg')} style={{height: 40, width: 40}}/>
             </View>
-            <View style={{alignItems:'center', marginTop: 64}}>
+            <View style={{alignItems:'center'}}>
               <View style={styles.logo}>
                 <Image style={{height: 180, width: 180}} source={this.state.logo}/>
               </View>
             </View>
-            <View style={{flexDirection: 'row', marginTop: 32}}>
-              <TouchableOpacity style={[styles.optionButton, {backgroundColor: this.state.optionsBgColor[0],flex:1}]} onPress={this.onPressOptionA}>
-                <Text style={styles.optionButtonText}>{this.state.options[0]}</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.optionButton, {backgroundColor: this.state.optionsBgColor[1],flex:1}]} onPress={this.onPressOptionB}>
-                <Text style={styles.optionButtonText}>{this.state.options[1]}</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={{flexDirection: 'row'}}>
-              <TouchableOpacity style={[styles.optionButton, {backgroundColor: this.state.optionsBgColor[2],flex:1}]} onPress={this.onPressOptionC}>
-                <Text style={styles.optionButtonText}>{this.state.options[2]}</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.optionButton, {backgroundColor: this.state.optionsBgColor[3],flex:1}]} onPress={this.onPressOptionD}>
-                <Text style={styles.optionButtonText}>{this.state.options[3]}</Text>
-              </TouchableOpacity>
+            <View style={{marginBottom: 64}}>
+              <View style={{flexDirection: 'row'}}>
+                <TouchableOpacity style={[styles.optionButton, {backgroundColor: this.state.optionsBgColor[0],flex:1}]} onPress={this.onPressOptionA}>
+                  <Text style={styles.optionButtonText}>{this.state.options[0]}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.optionButton, {backgroundColor: this.state.optionsBgColor[1],flex:1}]} onPress={this.onPressOptionB}>
+                  <Text style={styles.optionButtonText}>{this.state.options[1]}</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={{flexDirection: 'row'}}>
+                <TouchableOpacity style={[styles.optionButton, {backgroundColor: this.state.optionsBgColor[2],flex:1}]} onPress={this.onPressOptionC}>
+                  <Text style={styles.optionButtonText}>{this.state.options[2]}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.optionButton, {backgroundColor: this.state.optionsBgColor[3],flex:1}]} onPress={this.onPressOptionD}>
+                  <Text style={styles.optionButtonText}>{this.state.options[3]}</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
           <Modal
             animationType="fade"
             transparent={true}
             visible={this.state.showFinish}>
+            <StatusBar hidden={true} />
             <View style={styles.finishContainer}>
               <View style={styles.modalView}>
                 <Text style={{color: '#2c3e50', fontSize: 14}}>FINISH!</Text>
                 <Text style={{fontSize: 88, color: '#2c3e50'}}>{this.state.scorePercentage}</Text>
                 <View style={{flexDirection: 'row'}}>
                   <TouchableOpacity style={[styles.optionButton,{backgroundColor: '#f39c12', alignItems:'center'}]} onPress={this.onPressPlayAgain}>
-                    <Text style={styles.optionButtonText}>play again!</Text>
+                    <Text style={[styles.optionButtonText,{color: '#fff'}]}>PLAY AGAIN!</Text>
                   </TouchableOpacity>
                   <TouchableOpacity style={[styles.optionButton,{backgroundColor: '#3498db', alignItems:'center'}]} onPress={this.onPressShare}>
-                    <Text style={styles.optionButtonText}>share</Text>
+                    <Text style={[styles.optionButtonText,{color: '#fff'}]}>SHARE</Text>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -1046,7 +1056,8 @@ const styles = StyleSheet.create({
   optionButtonText: {
     color: '#2c3e50',
     fontWeight: 'bold',
-    fontSize: 14
+    fontSize: 14,
+    textAlign: 'center'
   },
   finishContainer:{
     justifyContent: 'center',
